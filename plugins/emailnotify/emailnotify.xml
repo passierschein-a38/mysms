@@ -1,0 +1,46 @@
+<!--
+/**
+* MySMS - Simple SMS Component for Joomla
+*
+* Axel Sauerhoefer < mysms[at]quelloffen.com >
+*
+* http://www.willcodejoomlaforfood.de
+*
+* $Author: axel $
+* $Rev: 183 $
+* $HeadURL: svn://willcodejoomlaforfood.de/mysms/trunk/plugins/emailnotify/emailnotify.xml $
+*
+* $Id: emailnotify.xml 183 2009-12-11 17:02:29Z axel $
+*
+* All rights reserved. 
+*
+* @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
+* MySMS! is free software. This version may have been modified pursuant
+* to the GNU General Public License, and as distributed it includes or
+* is derivative of works licensed under the GNU General Public License or
+* other free or open source software licenses.
+*
+* This program is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+*
+**/
+-->
+<?xml version="1.0" encoding="utf-8"?>
+<install version="1.5" type="plugin" group="mysms">
+	<name>MySMS - Email Notify</name>
+	<author>Axel Sauerhoefer</author>
+	<creationDate>24.01.2009</creationDate>
+	<copyright>(C) Axel Sauerhöfer GPL2. All rights reserved.</copyright>
+	<license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
+	<authorEmail>axel@willcodejoomlaforfood.de</authorEmail>
+	<authorUrl>http://www.willcodejoomlaforfood.de</authorUrl>
+	<version>1.5</version>
+	<description>MySMS Email notify plugin</description>
+	<files>
+		<filename plugin="emailnotify">emailnotify.php</filename>
+	</files>
+	<params>
+		<param name="emailnotify" type="text" default="root@localhost" label="Email" description="Email Adress to be notified"/>
+	</params>
+</install>

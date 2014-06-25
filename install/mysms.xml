@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE install SYSTEM "http://dev.joomla.org/xml/1.5/component-install.dtd">
+<install type="component" version="1.5">
+	<name>MySMS</name>
+	<author>Axel Sauerhoefer</author>
+	<creationDate>19.05.2010</creationDate>
+	<copyright>(C) 2010  Axel Sauerhoefer. All rights reserved.</copyright>
+	<authorEmail>axel@willcodejoomlaforfood.de</authorEmail>
+	<authorUrl>http://www.willcodejoomlaforfood.de</authorUrl>
+	<version>1.5.11</version>
+	<description>Simple SMS component for Joomla!</description>
+	<files>
+	  <filename>mysms.php</filename>
+	  <filename>mysms.frontend.php</filename>
+	  <filename>mysms.html.php</filename>
+	</files>
+- <media destination="com_mysms">
+  <filename>images/archive.png</filename> 
+  <filename>images/configure.png</filename> 
+  <filename>images/group.png</filename> 
+  <filename>images/phonebook.png</filename> 
+  <filename>images/usergroup.png</filename> 
+  <filename>images/template.png</filename>
+  <filename>images/home.png</filename>  
+  <filename>images/menu-close.png</filename>
+  <filename>imagesmenu-open.png</filename>
+  </media>		
+    <languages folder="i18n">
+    <language tag="en-GB">en-GB.com_mysms.ini</language> 
+	<language tag="de-DE">de-DE.com_mysms.ini</language> 
+    </languages>	
+	<install>
+	<queries>
+      <query>
+	CREATE TABLE `#__mysms_groups` (
+        `id` int(11) NOT NULL auto_increment,
+        `name` varchar(254) NOT NULL default '',
+        `ownerid` int(11) NOT NULL default '0',
+        PRIMARY KEY  (`id`)
+        );
+      </query>
+	  <query>
+		CREATE TABLE `#__mysms_joomlauser` (
+		`id` int(11) NOT NULL auto_increment,
+		`userid` int(11) NOT NULL default '0',
+		`number` varchar(254) NOT NULL default '',
+		`comment` varchar(254) NOT NULL default '',
+		`state` tinyint(4) NOT NULL default '0',
+		`credits` int(11) NOT NULL default '0',
+		PRIMARY KEY  (`id`),
+		UNIQUE KEY `userid` (`userid`)
+		);
+	  </query>
+	  <query>
+		CREATE TABLE `#__mysms_phonebook` (
+		`id` int(11) NOT NULL auto_increment,
+		`ownerid` int(11) NOT NULL default '0',
+		`number` varchar(254) NOT NULL default '',
+		`name` varchar(254) NOT NULL default '',
+		PRIMARY KEY  (`id`),
+		UNIQUE KEY `id` (`id`)
+		);
+	  </query>
+	   <query>
+		CREATE TABLE `#__mysms_provider` (
+		`id` int(11) NOT NULL auto_increment,
+		`name` varchar(254) NOT NULL default '',
+		`file` varchar(254) NOT NULL default '',
+		`params` longtext NOT NULL,
+		`active` enum('0','1') NOT NULL default '0',
+		PRIMARY KEY  (`id`),
+		UNIQUE KEY `id` (`id`)
+		);
+	  </query>
+	   <query>
+		CREATE TABLE `#__mysms_sendsms` (
+		`id` int(11) NOT NULL auto_increment,
+		`userid` int(11) NOT NULL default '0',
+		`senddate` timestamp NOT NULL,
+		`text` varchar(254) NOT NULL default '',
+		`from` varchar(254) NOT NULL default '',
+		`to` varchar(254) NOT NULL default '',
+		`providerid` int(11) NOT NULL default '0',
+		PRIMARY KEY  (`id`)
+		);
+	  </query>
+	   <query>
+		CREATE TABLE `#__mysms_usergroups` (
+		`id` int(11) NOT NULL auto_increment,
+		`memberid` int(11) NOT NULL default '0',
+		`groupid` int(11) NOT NULL default '0',
+		PRIMARY KEY  (`id`),
+		UNIQUE KEY `id` (`id`)
+		);
+	  </query>
+	  <query>
+	  CREATE TABLE `#__mysms_config` (
+	  `id` int(11) NOT NULL default '0',
+      `name` varchar(254) NOT NULL default '',
+      `value` text NOT NULL
+	  );
+	  </query>
+	  <query>
+      CREATE TABLE `#__mysms_templates` (
+       `tid` int(10) unsigned NOT NULL AUTO_INCREMENT,
+       `uid` int(11) NOT NULL DEFAULT '0',
+       `name` text NOT NULL,
+       `tmpl` text NOT NULL,
+       PRIMARY KEY (`tid`)
+       );
+	  </query>	  
+    </queries>
+	</install>
+	<uninstall>
+		<queries>
+      <query>
+	DROP TABLE `#__mysms_groups`;
+      </query>
+      <query>
+	DROP TABLE `#__mysms_joomlauser`;
+      </query>
+      <query>
+	DROP TABLE `#__mysms_phonebook`;
+      </query>
+      <query>
+	DROP TABLE `#__mysms_provider`;
+     </query>
+     <query>
+	DROP TABLE `#__mysms_sendsms`;
+     </query>
+     <query>
+	DROP TABLE `#__mysms_usergroups`;
+     </query>
+     <query>
+	DROP TABLE `#__mysms_config`;
+     </query>
+     <query>
+	DROP TABLE `#__mysms_templates`;
+     </query>	 
+    </queries>
+	</uninstall>
+  <administration>
+    <menu>MySMS</menu>
+	  <submenu>
+	    <menu act="configuration">Configuration</menu>
+	    <menu act="provider">SMSGatewayAdmin</menu>
+	    <menu act="user">UserAdmin</menu>
+	    <menu act="ad">Advertisment</menu>
+	    <menu act="global">GlobalSettings</menu>
+	    <menu act="about">AboutMySms</menu>
+	  </submenu>
+    <files>
+		<filename>provider/provider.php</filename>
+		<filename>provider/providerfactory.php</filename>
+		<filename>provider/mysms.provider.w2sms.php</filename>
+		<filename>provider/mysms.provider.aspsms.php</filename>
+		<filename>provider/mysms.provider.mesmo.php</filename>
+		<filename>provider/mysms.provider.smscreator.php</filename>
+		<filename>provider/mysms.provider.teleword.php</filename>
+		<filename>provider/mysms.provider.smskaufen.php</filename>
+		<filename>provider/mysms.provider.mobilant.php</filename>
+		<filename>provider/mysms.provider.sms4credits.php</filename>
+		<filename>provider/mysms.provider.clickatell.php</filename>
+		<filename>provider/mysms.provider.sms77.php</filename>
+		<filename>provider/mysms.provider.smsbox.php</filename>
+		<filename>provider/mysms.provider.nonoh.php</filename>
+		<filename>provider/mysms.provider.innosend.php</filename>
+		<filename>provider/mysms.provider.dev.php</filename>
+		<filename>provider/mysms.provider.mexado.php</filename>
+		<filename>provider/mysms.provider.suresms.php</filename>
+		<filename>provider/mysms.provider.compaya.php</filename>
+		<filename>provider/mysms.provider.hardwired.php</filename>
+		<filename>provider/mysms.provider.mobilenl.php</filename>
+		<filename>provider/mysms.provider.sloono.php</filename>
+		<filename>provider/mysms.provider.smsat.php</filename>
+		<filename>provider/3rdParty/sms_at.inc.php</filename>
+		<filename>provider/mysms.provider.wannafind.php</filename>
+		<filename>provider/mysms.provider.agiletelecom.php</filename>
+		<filename>provider/mysms.provider.smsviainternet.php</filename>
+		<filename>provider/mysms.provider.tm4b.php</filename>
+		<filename>provider/mysms.provider.infobip.php</filename>
+		<filename>provider/mysms.provider.coolsms.php</filename>		
+		<filename>provider/mysms.provider.smsglobal.php</filename>		
+		<filename>provider/mysms.provider.aruhat.php</filename>			
+		<filename>provider/mysms.provider.smscom.php</filename>					
+		<filename>provider/mysms.provider.massenversand.php</filename>	
+		<filename>provider/mysms.provider.smstrade.php</filename>			
+		<filename>admin.mysms.html.php</filename>
+		<filename>admin.mysms.php</filename>
+		<filename>mysms.backend.php</filename>
+		<filename>mysms.config.php</filename>
+		<filename>mysms.crypt.php</filename>
+		<filename>mysms.functions.php</filename>
+		<filename>mysms.error.php</filename>
+		<filename>mysms.group.php</filename>
+		<filename>mysms.phonebook.php</filename>
+		<filename>mysms.template.php</filename>
+		<filename>mysms.user.php</filename>
+	  	<filename>mysms.usergroups.php</filename>
+		<filename>mysms.prerequisite.php</filename>
+	  	<filename>toolbar.mysms.html.php</filename>
+	  	<filename>toolbar.mysms.php</filename>
+    </files>
+  <languages folder="i18n">
+    <language tag="en-GB">en-GB.com_mysms.ini</language> 
+    <language tag="de-DE">de-DE.com_mysms.ini</language>	
+    </languages>		
+  </administration>
+</install>
